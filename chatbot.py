@@ -1,5 +1,9 @@
 import tkinter as tk
 from tkinter import Scrollbar, END, Canvas, Frame
+from transformers import pipeline
+
+# --- Load HuggingFace Offline AI Model ---
+generator = pipeline("text-generation", model="distilgpt2")
 
 # --- Bot Logic ---
 def get_bot_response(msg):
@@ -18,17 +22,27 @@ def get_bot_response(msg):
         "help": "Sure! Ask me anything, like 'what can you do' or 'tell me a joke'.",
         "what is the time": "I don't have a clock, but you can check your device 😉",
         "how does facial recognition work step by step": 
-            "Facial recognition works by detecting a face in an image, analyzing its features (like eye spacing or jawline), converting these into a digital template, and comparing it to a database to find a match. It's like high-tech 'spot the difference'!",
+            "Facial recognition works by detecting a face in an image, analyzing its features, converting these into a digital template, and comparing it to a database to find a match.",
         "what is machine learning": 
-            "Machine learning is a type of AI where computers learn from data without being explicitly programmed. Think of it as teaching a child by showing examples instead of giving rigid rules!",
+            "Machine learning is a type of AI where computers learn from data without being explicitly programmed.",
         "how many countries use facial recognition": 
-            "Over 100 countries use facial recognition for security, law enforcement, or even payments. China and the U.S. are among the most active, but adoption varies widely.",
+            "Over 100 countries use facial recognition for security, law enforcement, or even payments.",
         "what is python programming": 
-            "Python is a versatile, beginner-friendly programming language used for web development, data science, AI, and more. It's like the Swiss Army knife of coding!",
+            "Python is a versatile, beginner-friendly programming language used for web development, data science, AI, and more.",
         "who created you": 
             "I was created by a team called team lossers"
     }
-    return responses.get(msg, "Sorry, I didn't understand that.")
+
+    if msg in responses:
+        return responses[msg]
+    else:
+        # --- Offline AI Fallback ---
+        try:
+            result = generator(msg, max_length=80, num_return_sequences=1)
+            return result[0]["generated_text"]
+        except Exception as e:
+            return f"Sorry, I couldn't process that. (Error: {e})"
+
 
 class Chatbot:
     def __init__(self, root):
@@ -100,6 +114,7 @@ class Chatbot:
         self.entry_box.delete(0, END)
         self.add_message(msg, "user")
         self.root.after(500, lambda: self.add_message(get_bot_response(msg), "bot"))
+
 
 # --- Run only if directly executed ---
 if __name__ == "__main__":
