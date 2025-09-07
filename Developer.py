@@ -40,10 +40,10 @@ class Developer:
 
         # Developers info
         developers = [
-            {"x": 0, "y": 110, "image": "Aditya.jpg", "role": "TEAM ADMIN", "name": "Aditya Roy"},
-            {"x": 395, "y": 110, "image": "Samaresh.jpg", "role": "TEAM MEMBER", "name": "Samaresh Debnath"},
+            {"x": 0, "y": 110, "image": "Samaresh.jpg", "role": "TEAM ADMIN", "name": "Samaresh Debnath"},
+            {"x": 395, "y": 110, "image": "Aditya.jpg", "role": "TEAM MEMBER", "name": "Aditya Roy"},
             {"x": 790, "y": 110, "image": "Subhasis.jpg", "role": "TEAM MEMBER", "name": "Subhasis Mahato"},
-            {"x": 1180, "y": 110, "image": "Deepanjan.jpg", "role": "TEAM MEMBER", "name": "Deepanjan Seth"},
+            {"x": 1180, "y": 110, "image": "sneha.jpg", "role": "TEAM MEMBER", "name": "Sneha Sharma"},
         ]
 
         for dev in developers:
@@ -64,7 +64,7 @@ class Developer:
               bg="lavender", fg="blue").place(x=5, y=295)
         Label(frame, text="DEPT : Information Technology", font=("times new roman", 18, "bold"),
               bg="lavender", fg="blue").place(x=5, y=335)
-        Label(frame, text="Year : 1st Year", font=("times new roman", 18, "bold"),
+        Label(frame, text="Year : 2nd Year", font=("times new roman", 18, "bold"),
               bg="lavender", fg="blue").place(x=5, y=375)
         Label(frame, text="College : University Institute of Technology,BU",
               font=("times new roman", 18, "bold"), bg="lavender", fg="blue",
@@ -80,3 +80,4 @@ if __name__ == "__main__":
     root = Tk()
     app = Developer(root)
     root.mainloop()
+
